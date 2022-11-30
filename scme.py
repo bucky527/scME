@@ -70,9 +70,9 @@ def train_scme(dataset,inputargs,max_epochs=100,batch_size=100,lr=1e-3,lr_step=[
 if __name__=='__main__':
 
     parser=argparse.ArgumentParser()
-    # parser.add_argument('--rna',type=str,help='rna csv data path')
-    # parser.add_argument('--protein',type=str,help='protein csv data path')
-    # parser.add_argument('--output-dir',type=str,help='output directory')
+    parser.add_argument('--rna',type=str,help='rna csv data path')
+    parser.add_argument('--protein',type=str,help='protein csv data path')
+    parser.add_argument('--output-dir',type=str,help='output directory')
     parser.add_argument('--max-epochs',type=int,default=100,help='max epochs')    
     parser.add_argument('--batch-size',type=int,default=100,help='batch size')
     parser.add_argument('--lr',type=float,default=1e-3,help='learning rate')
@@ -82,17 +82,17 @@ if __name__=='__main__':
     parser.add_argument('--protein-latentdim',type=int,default=20,help='protein latent dimension')
 
     args=parser.parse_args()
-    # rnadata=pd.read_csv(args.rna,index_col=0)
-    # proteindata=pd.read_csv(args.protein,index_col=0)
-    # rna,protein=rna_protein_preprocess(rnadata,proteindata)
-    # traindataset=AnnDataset(rna,protein)
-    # scmesvi=train_scme(dataset=traindataset,inputargs=args,max_epochs=args.max_epochs,lr=args.lr,batch_size=args.batch_size,)
+    rnadata=pd.read_csv(args.rna,index_col=0)
+    proteindata=pd.read_csv(args.protein,index_col=0)
+    rna,protein=rna_protein_preprocess(rnadata,proteindata)
+    traindataset=AnnDataset(rna,protein)
+    scmesvi=train_scme(dataset=traindataset,inputargs=args,max_epochs=args.max_epochs,lr=args.lr,batch_size=args.batch_size,)
 
-    # rnatorch,proteintorch=torch.from_numpy(np.array(rnadata)),torch.from_numpy(np.array(proteindata))
-    # rnatorch,proteintorch=rnatorch.to(scmesvi.device),proteintorch.to(scmesvi.device)
-    # scmesvi.eval()
-    # zm_pre=scmesvi.get_zm_predict(rnatorch,proteintorch)
-    # zm_pre=pd.DataFrame(zm_pre,index=rnadata.index)
-    # zm_pre.to_csv(os.path.join(args.output_dir,f'scME_result.csv'))
+    rnatorch,proteintorch=torch.from_numpy(np.array(rnadata)),torch.from_numpy(np.array(proteindata))
+    rnatorch,proteintorch=rnatorch.to(scmesvi.device),proteintorch.to(scmesvi.device)
+    scmesvi.eval()
+    zm_pre=scmesvi.get_zm_predict(rnatorch,proteintorch)
+    zm_pre=pd.DataFrame(zm_pre,index=rnadata.index)
+    zm_pre.to_csv(os.path.join(args.output_dir,f'scME_result.csv'))
 
 
