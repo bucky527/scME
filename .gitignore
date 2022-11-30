@@ -1,0 +1,7 @@
+/dataset
+/data
+/lightning_logs
+/__pycache__
+*.ipynb
+/.vscode
+/__pycache__
