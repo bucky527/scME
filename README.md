@@ -10,9 +10,7 @@ scME: A Dual-Modality Factor Model for Single-Cell Multi-Omics Embedding
     `conda env create -f environment.yaml`
 
 ## Prepare matrix and label files
-1. scME accepts as input the log-transformed gene matrix in the MatrixMarket format usually end in ".mtx", where rows are cells and columns are genes. 
-2. The label file can be either the CSV format or the TSV format, one label per line.
-3. [Data](https://github.com/ZengFLab/scClassifier2/tree/main/data) gives some examples of matrix and label files.
+scME accepts as input the  RNA gene counts matrix data and raw protein ADTs counts matrix data in the CSV format usually end in ".csv", where rows are cells and columns are genes, and the columns 0 in csv file should be the cells ids. 
 
 
 
@@ -24,7 +22,6 @@ usage: python scme.py [-h] [--rna RNA] [--protein PROTEIN] [--output-dir OUTPUT_
                [--aux-loss-multiplier AUX_LOSS_MULTIPLIER]
                [--rna-latentdim RNA_LATENTDIM]
                [--protein-latentdim PROTEIN_LATENTDIM]
-
 
 ```
 ## Option
