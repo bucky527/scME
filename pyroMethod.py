@@ -33,7 +33,6 @@ class ScMESVI(nn.Module):
         self.epsilon = 0.006
         self.class_num1=rna_class_num
         self.class_num2=protein_class_num
-        self.alpha=alpha
         self.scale_factor=scale_factor
         self.aux_loss_multiplier=aux_loss_multiplier
         self.device=device

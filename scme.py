@@ -18,6 +18,11 @@ from pyroMethod import *
 import argparse
 
 
+import os
+
+# gpu selection
+os.environ['CUDA_VISIBLE_DEVICES'] = "1"
+
 def train_scme(dataset,inputargs,max_epochs=100,batch_size=100,lr=1e-3,lr_step=[100],aux_loss_multiplier=20,latent_dim=32):
     
     if torch.cuda.is_available():
@@ -70,9 +75,9 @@ def train_scme(dataset,inputargs,max_epochs=100,batch_size=100,lr=1e-3,lr_step=[
 if __name__=='__main__':
 
     parser=argparse.ArgumentParser()
-    parser.add_argument('--rna',type=str,help='rna csv data path')
-    parser.add_argument('--protein',type=str,help='protein csv data path')
-    parser.add_argument('--output-dir',type=str,help='output directory')
+    parser.add_argument('--rna',type=str,help='rna csv data path',required=True)
+    parser.add_argument('--protein',type=str,help='protein csv data path',required=True)
+    parser.add_argument('--output-dir',type=str,help='output directory',required=True)
     parser.add_argument('--max-epochs',type=int,default=100,help='max epochs')    
     parser.add_argument('--batch-size',type=int,default=100,help='batch size')
     parser.add_argument('--lr',type=float,default=1e-3,help='learning rate')
@@ -85,10 +90,10 @@ if __name__=='__main__':
     rnadata=pd.read_csv(args.rna,index_col=0)
     proteindata=pd.read_csv(args.protein,index_col=0)
     rna,protein=rna_protein_preprocess(rnadata,proteindata)
-    traindataset=AnnDataset(rna,protein)
+    traindataset=AnnDataset(rna,protein,to_onehot=True)
     scmesvi=train_scme(dataset=traindataset,inputargs=args,max_epochs=args.max_epochs,lr=args.lr,batch_size=args.batch_size,)
 
-    rnatorch,proteintorch=torch.from_numpy(np.array(rnadata)),torch.from_numpy(np.array(proteindata))
+    rnatorch,proteintorch=torch.from_numpy(np.array(rna.X)),torch.from_numpy(np.array(protein.X))
     rnatorch,proteintorch=rnatorch.to(scmesvi.device),proteintorch.to(scmesvi.device)
     scmesvi.eval()
     zm_pre=scmesvi.get_zm_predict(rnatorch,proteintorch)

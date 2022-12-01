@@ -16,7 +16,7 @@ scME accepts as input the  RNA gene counts matrix data and raw protein ADTs coun
 
 ## Usage
 ```
-usage: python scme.py [-h] [--rna RNA] [--protein PROTEIN] [--output-dir OUTPUT_DIR]
+usage: python scme.py [-h] --rna RNA --protein PROTEIN --output-dir OUTPUT_DIR
                [--max-epochs MAX_EPOCHS] [--batch-size BATCH_SIZE] [--lr LR]
                [--latentdim LATENTDIM]
                [--aux-loss-multiplier AUX_LOSS_MULTIPLIER]
@@ -24,14 +24,14 @@ usage: python scme.py [-h] [--rna RNA] [--protein PROTEIN] [--output-dir OUTPUT_
                [--protein-latentdim PROTEIN_LATENTDIM]
 
 ```
-## Option
+## Option Arguments
 ```
 optional arguments:
   -h, --help            show this help message and exit
   --rna RNA             rna csv data path
   --protein PROTEIN     protein csv data path
   --output-dir OUTPUT_DIR
-                        output directory
+                        output directory(scME embedding result path)
   --max-epochs MAX_EPOCHS
                         max epochs
   --batch-size BATCH_SIZE
