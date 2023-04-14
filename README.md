@@ -118,4 +118,4 @@ zm=scme.inference(rna_data,protein_data)
 
 ### scME model example
 
-see a running example in notebook [tutorial.ipynb]().
+see a running example in notebook [tutorial.ipynb](https://github.com/bucky527/scME/blob/master/tutorial.ipynb).
