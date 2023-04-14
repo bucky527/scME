@@ -89,7 +89,7 @@ def build_scme(rnadata,proteindata,train_dataset,protein_dist="MNB",rna_latent_d
         c_loc,c_scale=np.mean(c_sum),np.std(c_sum)
         scme_model.setup_network(rna_class_num=train_dataset.rna_class_num,protein_class_num=train_dataset.protein_class_num,
                         l_loc=l_loc,l_scale=l_scale,c_loc=c_loc,c_scale=c_scale,
-                        rna_latent_dim=rna_latentdim,protein_latent_dim=protein_latentdim)
+                        rna_latent_dim=rna_latentdim,protein_latent_dim=protein_latent_dim)
     else:
         scme_model=ScMESVI_2(rna_dim=rnadata.shape[1],protein_dim=proteindata.shape[1],
                 latent_dim=latent_dim,aux_loss_multiplier=1000)
@@ -99,7 +99,7 @@ def build_scme(rnadata,proteindata,train_dataset,protein_dist="MNB",rna_latent_d
         c_loc,c_scale=np.mean(c_sum),np.std(c_sum)
         scme_model.setup_network(rna_class_num=train_dataset.rna_class_num,protein_class_num=train_dataset.protein_class_num,
                         l_loc=l_loc,l_scale=l_scale,c_loc=c_loc,c_scale=c_scale,
-                        rna_latent_dim=rna_latentdim,protein_latent_dim=protein_latentdim)
+                        rna_latent_dim=rna_latent_dim,protein_latent_dim=protein_latent_dim)
     scme_model.train_dataset=train_dataset
     return scme_model
 
@@ -128,7 +128,7 @@ def train_model(model,max_epochs,batchsize=256,lr=1e-4,lr_cla=1e-4,milestones=[8
         losses_ae=[]
         if save_model and epoch%10==0:
             torch.save(model.state_dict(),os.path.join(save_dir,'model.pt'))
-        for i,(rna,protein,yr,yp) in enumerate(dataloader):
+        for i,(rna,protein,yr,yp) in enumerate(train_dataloader):
             rna=rna.to(device)
             protein=protein.to(device)
             yr=yr.to(device)

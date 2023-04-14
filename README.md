@@ -17,7 +17,7 @@ scME: A Dual-Modality Factor Model for Single-Cell Multi-Omics Embedding
    you can install dependencies use pip
 
    ```
-   pip3 install numpy scipy pandas scikit-learn pyro-ppl matplotlib scanpy anndata
+   pip3 install numpy scipy pandas scikit-learn pyro-ppl matplotlib scanpy anndata scvi-tools
    ```
 
    or use conda environment

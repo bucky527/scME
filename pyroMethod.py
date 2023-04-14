@@ -49,10 +49,6 @@ class ScMESVI_Batch(nn.Module):
         self.l_loc=torch.ones((self.batch_num,self.rna_dim))
         self.l_scale=torch.ones((self.batch_num,self.rna_dim))
 
-         
-        #generate encoder
-
-        
 
     def model(self,rna,protein,batch_onehot=None):
         pyro.module("svimerge",self)
@@ -63,16 +59,7 @@ class ScMESVI_Batch(nn.Module):
         
 
         with pyro.plate('data',len(rna)):
-            # Define a unit Normal prior distribution for z1
 
-            # y1_prior=torch.zeros(batch_size,self.class_num1,**options)
-
-            # y1=pyro.sample("y1",dist.OneHotCategorical(logits=y1_prior),obs=y1)
-            # y2_prior=torch.zeros(batch_size,self.class_num2,**options)
-
-            # y2=pyro.sample("y2",dist.OneHotCategorical(logits=y2_prior),obs=y2)
-
-            #zm prior
             zm_loc=torch.zeros(batch_size,self.latent_dim,**options)
             zm_scale=torch.ones(batch_size,self.latent_dim,**options)
 
@@ -101,14 +88,7 @@ class ScMESVI_Batch(nn.Module):
             if y2 is None:
                 y2_logits=self.classifer2(zm)
                 y2=pyro.sample("y2",dist.OneHotCategorical(logits=y2_logits))
-               
-            # else:
-            #     classification_loss=y_dist.log_prob(y)
 
-            #     # and the guide log_prob appears in the ELBO as -log q
-            #     pyro.factor("classification_loss", -self.alpha * classification_loss, has_rsample=False)
-
-        
 
     def model_classify(self, r,e,y1= None):
         """
